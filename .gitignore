@@ -1,0 +1,11 @@
+# R/RStudio
+.Rhistory
+.RData
+!/results/*.RData
+
+# Knit files
+/paper/**/*.html
+/paper/**/*.pdf
+
+# WinMerge
+*.bak

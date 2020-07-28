@@ -1,0 +1,13 @@
+# References
+
+<!-- 
+In general, the references section can be blank.
+Bookdown will just add in refrences you used, cite them as requested and procede on it's merry way.
+Anything you want to force add without a text reference can be incuded here.
+It is _probaly_ not helpful to add in supporting packages like `dplyr` unless it is a core part of your project.
+-->
+
+---
+nocite: | 
+  @github, @rlanguage, @rstudio
+...
