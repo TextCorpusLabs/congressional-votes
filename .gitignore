@@ -1,11 +1,14 @@
-# R/RStudio
+# IDE/Tools
 .Rhistory
 .RData
-!/results/*.RData
+*.bak
 
-# Knit files
+# data
+/data/raw
+
+# paper
 /paper/**/*.html
 /paper/**/*.pdf
 
-# WinMerge
-*.bak
+# results
+!/results/*.RData

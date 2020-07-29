@@ -2,29 +2,19 @@ Below can be found a list of data manulipation scripts that help make this work 
 
 ## Packages/Modules
 
-> Describe what programing language you use.
-> Is it R, Python, both?
-> Also add in the version.
-> Make sure you add in the version of packages/modules you are using then add the install script to setup the enviorment. 
-
-All scripts have been tested on Python 3.8.2.
+All scripts have been tested on Python 3.8.5.
 The below modules are needed to run the scripts.
 The scripts were tested on the noted versions, so YMMV.
 **Note**: not all modules are required for all scripts.
 If this it the first time running the scripts, the modules will need to be installed.
 They can be installed by navigating to the `~/code` folder, then using the below code.
 
-> I recomend using the `requirments.txt` when you write in Python.
-
-> I like listing out requirements in alpha sort order.
-> I find it is easer to see if they are already in the list that way.
-
-* nltk 3.4.5
-* progressbar2 3.47.0
+* bs4 = 0.0.1
+* lxml = 4.5.0
+* progressbar2 = 3.47.0
 
 ```{shell}
 pip install -r requirments.txt
-python -c "import nltk;nltk.download('punkt')"
 ```
 
 All scripts have been tested on R/R Studio 3.6.2/1.2.5019.
@@ -43,11 +33,9 @@ install.packages(c('dplyr', 'ggpubr'))
 
 ## Scripts
 
-> List out and number all the files found in this folder.
-> Give a brief discription of what there intended effects are.
-> Do they cleanup data or perform an analysis?
-> What files will they generate?
-> They need not be in any particular order, but if you change the number, remember to update the main `~/README.md` file.
+Below is a brief summary of each of the scripts.
+If you want to fully regenerate the results, clean out the `~/data` and `~results` folders then run the scripts in the order listed.
 
-1. Run the [Analysis](./analysis_1_of_n.rmd).
-   This will produce the table `~/results/analysis_1_of_n.RMD` and figure `~/results/analysis_1_of_n.jpg`.
+1. [get_list_of_votes.py](./get_list_of_votes.py).
+   This script will get the list of votes from [govtrack.us](govtrack.us) starting in 1990 and ending in 2020.
+   This script will produce the temporary folder `~/data/raw/list_of_votes` necessary for ofline processing.
