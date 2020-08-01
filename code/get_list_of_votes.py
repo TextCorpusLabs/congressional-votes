@@ -1,5 +1,6 @@
 import pathlib
 import time
+import progressbar as pb
 import urllib.request
 import urllib.robotparser
 

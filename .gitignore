@@ -2,6 +2,7 @@
 .Rhistory
 .RData
 *.bak
+__pycache__
 
 # data
 /data/raw
