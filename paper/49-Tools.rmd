@@ -1,9 +1,0 @@
-## Software Tools
-
-Describe the software tools that were used.
-Was it R or Python or both?
-Including the boilerplate below is a good idea to let readers who are not browsing GitHub directly find the implementation.
-
-GitHub[^githublink] was selected as a long-term storage location for raw data as well as source control.
-
-[^githublink]: https://github.com/xxx/xxx. Put in link post review.
