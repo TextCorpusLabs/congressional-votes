@@ -1,0 +1,31 @@
+# Summary
+
+Researchers and industry parties across the United States have expressed a strong demand for easily accessible data sets designed to address the task of predicting congressional roll calls behavior. 
+Due to the high complexity of the social environment that the data captures it is difficult to construct an accurate representation of the votes occurring in congress, especially for unstructured data. 
+Currently, easily accessible information to study the behavior of congressional votes using text is not available without tedious collection efforts.
+We provide the *'congressional roll call dataset'* to address such issues for further research into Congress' legislative text. 
+The dataset provides a source to study both the collective use of language for congressional roll call votes or for a study of a single sample to a specific vote. 
+
+The main motivation for the data source is to attempt to predict the status of a congressional roll call votes from legislative texts alone. 
+The main focus, a classification problem, shaped the dimensions of the dataset. 
+The language samples are equally distributed text representations of passing and failed congressional votes.
+The datasets size is not large considering the number of observations, but the individual length of the texts varies significantly. 
+A high variance is reflected in the language from the variation in length. 
+The dataset provides the proper dimensions for performing text classification or other forms of language modeling. 
+
+The data provides access to each congressional roll call vote from 2000 to 2009.
+The text captures their political ideology as suggested by [@nay2017predicting]. 
+Understanding their voting behavior across the use of the language contained in the legislative texts helps map the action of the legislators as a whole on different issues. 
+To assist in understanding the voting behavior the text is accompanied by features for each document. 
+Features are crucial to add to the data because they provide beneficial dimensions for experimentation. 
+Language tends to capture more features than just words. 
+For instance, the different mappings of sentence structure or the texts lengths.  
+The *congressional roll call dataset* includes annotated features such as the parts of speech for each word.
+To ease the use of the features the text and part of speech are merged with each other.  
+The merge sets a word and then the part of speech until the end of each sequence. 
+
+The rest of the paper is outlined as follows.
+Section \@ref(data-description) presents a description of the data set.
+Section \@ref(method-and-materials) presents the methods implemented to collect the data. 
+Section \@ref(user-notes) describes possible uses for the data set.
+Section \@ref(appendix-a) describes the characteristics of the data set. 

@@ -1,0 +1,64 @@
+# User Notes 
+
+## Reading the Data
+
+Reading the data in R is very straightforward. Use the R package *readr*. 
+/.csv files are easy to read using the read_csv(...) function. 
+Below in Figure \@ref(fig:fig8) is an example for importing the *congressional roll call dataset* into an R enviroment. 
+
+```{r fig8, echo=TRUE, fig.cap=, message=FALSE, warning=FALSE, fig.cap = 'Import data'}
+library(readr)
+cong_roll_call_data <- read_csv("cong.roll.call.data.csv")
+```
+
+## Reshaping the Data
+
+After, importing the data the text in some model cases requires further processing for modeling efforts. 
+For example, to convert the sample text into a word vector spaces the *'keras* process can be utilized. 
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+library(keras)
+vocab = 18610
+tokenizer <- text_tokenizer(num_words = vocab)
+
+tokenizer %>% 
+  fit_text_tokenizer(cong_roll_call_data$text)
+
+text_seqs <- 
+  texts_to_sequences(tokenizer,
+                     cong_roll_call_data$text)
+```
+
+The process requires a set number of features, whichis the vocabulary in the text. 
+Using the text_tokenizer(...) function with the number of words set to the total number of vocab, a tokenizer prepared to fit to the data. 
+The tokenizer tokenizes the text samples into a tokenized sequences using fit_text_tokenizer(...) function.  
+The tokenized seqeunce of words are transformed into word vector spaces using the texts_to_sequence(...) function. 
+The process results in Figure \@ref(fig:fig9).
+
+```{r fig9, echo = F, fig.cap = 'Sample of Text as Word Vector Spaces'}
+library(png)
+library(grid)
+img <- readPNG("./pictures/figure9.png")
+grid.raster(img)
+```
+
+Another useful shape to convert the dataset into is a document term matrix. 
+Performing models such as topic modeling require text to be represented in this form in order process. 
+For instance the *'topicsmodel'* library in R. The resulting data is shown in Figure \@ref(fig:fig10).
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+library(tm)
+data.dtm = 
+  tm::Corpus(VectorSource(cong_roll_call_data$text))
+dtm <- tm::DocumentTermMatrix(data.dtm)
+```
+
+```{r fig10, echo = F, fig.cap = 'Sample of document term matrix'}
+library(png)
+library(grid)
+img <- readPNG("./pictures/figure11.png")
+grid.raster(img)
+```
+
+Further information of reshaping the data is located at [@githubmmlbb]. 
+The repo include processes for vectorizing a corpus, normalizing a corpus by padding, normalizing a corpus by truncation, normalizing a corpus by windowing, and normalizing a corpus by Zipfs Law [@githubmmlbb]. 

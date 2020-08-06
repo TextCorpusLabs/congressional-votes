@@ -1,0 +1,82 @@
+# Data Description
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(lemon)
+knit_print.table <- lemon_print
+```
+
+
+The data contains the 196 observations and 5 variables including the following depicted in Figure \@ref(fig:fig1). 
+
+```{r fig1, echo = F, fig.cap = 'Data Structure'}
+library(png)
+library(grid)
+img <- readPNG("./pictures/figure1.png")
+grid.raster(img)
+```
+
+
+The variable class represents the status of the legislative text in the congresional roll call, either 0 or 1. A 0 reflects failure and a 1 is defined as a pass. 
+The voting responses are a character type including the following responses when collected from original source yea, nay, aye, no, and not voting. 
+We convert the original source data to a binary response to capture the features detailed below.
+The classes of the data are an equal distribution of representation as in Table \@ref(tab:confusion).
+
+```{r confusion, echo = F}
+best.cm <- data.frame(cbind(c(98),c(98)))
+colnames(best.cm) = c("0", "1")
+knitr::kable(
+  best.cm,
+  booktabs = TRUE,
+  caption = 'Equal Distribution of Classes'
+)
+```
+
+In section \@ref(method-and-materials) the process to create the proper label is detailed. 
+The path includes the source folder of the legislative text. 
+The path communicates the number of the congress, the year, and the unique id for each vote as depicted in Figure \@ref(fig:fig2). 
+
+```{r fig2, echo = F, fig.cap = 'Sample of Path Title'}
+library(png)
+library(grid)
+img <- readPNG("./pictures/figure3.png")
+grid.raster(img)
+```
+
+
+The data also includes the pre-processed texts. 
+In section \@ref(method-and-materials) the process to create the preprocessed text is detailed. 
+In Figure \@ref(fig:fig3) a sample of the text is shown. Converting the preprocessed text into a document term matrix (DTM) provides the number of unique words in the sample.
+Refer to Figure \@ref(fig:fig4).
+The DTM also provides insight into the non-/sparse entries from the sample with a ratio of `r 151158/3496402`. 
+The maximum term length results in only 44, indicating that some very large character sequences are contained in the text. 
+A large number of terms represented in the language expresses the complexity of the content contained in the legislative text.
+
+```{r fig3, echo = F, fig.cap = 'Sample of Preprocessed Text'}
+library(png)
+library(grid)
+img <- readPNG("./pictures/figure4.png")
+grid.raster(img)
+```
+
+```{r fig4, echo = F, fig.cap = 'Document Term Matrix of Preprocessed Text'}
+library(png)
+library(grid)
+img <- readPNG("./pictures/figure7.png")
+grid.raster(img)
+```
+
+The next variable contained in the data is the document id for each text samples. 
+The document id serves as an easier identifier for  the samples then the path title. 
+The unique identifiers are numerical values, 1:196. 
+
+The final variable in the dataframe is an annotated and reshaped text paired with parts of speech. 
+In Figure  \@ref(fig:fig5) a sample of the manipulated text is depicted. 
+
+```{r fig5, echo = F, fig.cap = 'Preprocessed Text paired with parts of speech'}
+library(png)
+library(grid)
+img <- readPNG("./pictures/figure6.png")
+grid.raster(img)
+```
+
+The complete process to collect and reshape the data is discussed in the Section \@ref(method-and-materials). 

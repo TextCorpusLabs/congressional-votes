@@ -1,11 +1,26 @@
 ---
-title: '{{your title}}'
-author: '{{your name(s)}}'
-date: '`r Sys.Date()`'
-knit: 'bookdown::render_book'
+title: 'Congressional Roll Call Dataset'
+subtitle: 'Deep Text Mining Approach (DTMA)'
+date: "`r Sys.Date()`"
+knit: bookdown::render_book
+affiliation:
+  institution-columnar: true
+  institution:
+    - name: Harrisburg University of Science and Technology, 
+      department: Department of Analytics and Data Science
+      location: Harrisburg, PA
+      mark: 1
+      author:
+        - name: Jonathan Korn
+          email: jkorn@harrisburgu.edu*
+        - name: Mark Newman
+          email: manewman@my.harrisburgu.edu
 bibliography: '../references/_references.bib'
 link-citations: yes
-csl: https://raw.githubusercontent.com/citation-style-language/styles/master/apa.csl
-url: 'https\://github.com/MindMimicLabs/{{your project}}'
-github-repo: MindMimicLabs/{{your project}}
+csl: https://raw.githubusercontent.com/citation-style-language/styles/master/ieee-with-url.csl
+url: 'https://github.com/MindMimicLabs/data-congressional-votes'
+github-repo: MindMimicLabs/data-congressional-votes
 ---
+```{r include=FALSE}
+options(tinytex.verbose = TRUE)
+```

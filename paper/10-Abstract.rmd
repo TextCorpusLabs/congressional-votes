@@ -1,12 +1,7 @@
-# Abstract
+In this paper, we introduce a new dataset labeled *"Congressional Votes"*, which is avaiable for academic research created at [@githubmml]. 
+The dataset contains detailed information on the congressional roll call votes from 2000 to 2019 including legislative text and vote status. 
+The dataset is constructed after collecting and assembling historical information from one data provider at [@govtrack]. 
+All votes, no matter the type of document are included in the dataset to mitigate bias. 
+The dataset is contructed to serve as a research dataset for high accuracy in capturing congressional roll call voting patterns.
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-At vero eos et accusam et justo duo dolores et ea rebum.
-Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-At vero eos et accusam et justo duo dolores et ea rebum.
-Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-
-**Keywords**: Lorem ipsum dolor sit amet
+**_keywords:_** 'Congressional Roll Call Votes'
