@@ -1,28 +1,54 @@
 # Method and Materials
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-At vero eos et accusam et justo duo dolores et ea rebum.
-Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-At vero eos et accusam et justo duo dolores et ea rebum.
-Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+The original data is accessible from [@govtrack]. 
+From the years 2000 to 2009 data is collected from the source, including both the legislative texts and corresponding metadata for each congressional roll call vote.
+Once the data is obtained from the source the /.txt files of legislative texts and the /.csv files of metadata are stored in a local folder labeled *"/data"*.
+The folder contains a total of 3668 /.txt and /.csv each. 
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-At vero eos et accusam et justo duo dolores et ea rebum.
-Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-At vero eos et accusam et justo duo dolores et ea rebum.
-Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+Here the process follows the steps as depicted in Figure \@ref(fig:fig6). 
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-At vero eos et accusam et justo duo dolores et ea rebum.
-Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-At vero eos et accusam et justo duo dolores et ea rebum.
-Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+```{r fig6, echo = F, fig.cap = 'Sample of Annotated Text'}
+library(png)
+library(grid)
+img <- readPNG("./pictures/figure8.png")
+grid.raster(img)
+```
+ 
+Each subfolder is labeled with congress number, year, and unique roll call vote number. 
+The /.txt and /.csv files are imported into a lists of paths. 
+The seperate lists of paths are joined together and utilized to load all the /.txt files and /.csv files into the enviroment. 
+The next step is to create the classification variable to represent the status of the congressional roll call vote. 
+
+In order to create the variable the number of *'yea'* and *'aye'* responses for each vote are considered to be greater than the other repsonses. 
+If there are more *'yea'* and *'aye'* responses than the document is labeled 1 defined as *'pass'*, otherwise labeled a 0, defined as *'fail'*. The resulting data is framed to the length of the minimum number of callsses in the data. Splitting the data by the unique classes of 0 or 1 balances the distribution of the data. 
+The data is randomized and combined to include the minimum count of observations for either the 0 or 1 class.
+
+The data frame is equal representation of 196 votes of *'pass'* and *'fail'* status. 
+Some initial pre-processing steps are performed to the data in order to clean it for the annotation process. 
+The pre-processing steps include a conversion to lower casing of all text, the removal of special characters, the removal of NA values, and thes tripping of whitespace. 
+A document id variable is created and added to the frame for aggregating the class, path, and text to the annotated text. 
+
+Annotating the text provides valuable information about the documents including the universal part of speech, lemma, token, and features. 
+The annotation processing the text samples through tokenization, part of speech tagging, lemmatization, and dependency parsing [@udpipe].
+The approach uses a pre-trained model from the UDPipe community, in this case *'english-ewt'*. 
+Note the community contains pre-trained models for 64 languages [@udpipe]. 
+When the pre-trained model is applied to text, it is transformed into a data frame containing the variables shown in Figure \@ref(fig:fig7). 
+
+```{r fig7, echo = F, fig.cap = 'Process to create data'}
+library(png)
+library(grid)
+img <- readPNG("./pictures/figure10.png")
+grid.raster(img)
+```
+
+The dataframe in Figure \@ref(fig:fig6) is utilized to extract the tokens parts of speech. 
+The parts of speech is merged with the preprocessed text for every token. 
+The process results in the sample depicted above in Figure \@ref(fig:fig5). 
+The *text* is finalized by further preprocessing including removing stop words, removing numbers, removing punctuation, and stemming. 
+Utilizing the common variable document id the merged variable of text and parts of speech is combined with the above mentioned variables into a data frame. 
+A final pre-processing step is performed for both the new variable labeled *'sent_upos'*.
+The *sent_upos* text preprocessing steps include conversion to lower casing, the removal of special characters, the removal of NA values, stripping of the wthitespace, removing stop words, removing numbers, removing punctuation, and stemming. 
+ 
+The final data frame is sotred as a /.csv file. 
+As more data becomes available the dataset witll be updated with more samples. 
+a equal distribution of the class representation will always be maintained. 
