@@ -1,18 +1,10 @@
-# Repo Template
+# Congressional Roll Call Votes
 
-> You should think of GitHub as your modern research journal.
-> It is a place to write down your observations, leave notes as to what worked and what didn't, and automate any process you may have.
-> This repository template is intended to help collect your thoughts in a why to help others reproduce your work and learn from it.
-> Describe the purpose of the project.
-> What result does it demonstrate?
-> What tools/techniques does it use?
-> What are the key points others should learn.
+
 
 ## Tabula Rasa
 
-> Any type of research process will have some amount of steps that are taken to produce the result.
-> When a new researcher joins your team they should be able to read through the steps provided here and get up to speed with where the research stands.
-> There might be other prior works they need, just link them.
+
 
 The below steps can be taken to "re-play" the project's process.
 Each step may refer to a different README.
@@ -33,10 +25,6 @@ When the work is still _in-progress_ a note of TODO, DOING, DONE should be added
 
 ## Prerequisites
 
-> I work primarily in Microsoft Windows.
-> That bias shows through here.
-> If you want to help others through specific processes for a different OS, feel free.
-
 The following packages need to be installed.
 You can use any method to install the prerequisites.
 I recommend using [Chocolatey](https://chocolatey.org/install).
@@ -55,6 +43,3 @@ choco install r.project -y
 refreshenv
 choco install r.studio -y
 ```
-
-> While humans can't tell the difference, when working with Markdown (or R Markdown) make sure every sentence is on a single line and the last line in a document is empty.
-> This will make any automatic diffing tool work a lot better.
