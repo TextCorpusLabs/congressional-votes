@@ -48,23 +48,6 @@ These paths can still be changed, but the R code will need to be adjusted intern
    python -O process_vote_details.py -in d:/temp/vote_details -out d:/temp/vote_details.csv
    ```
 
-## Core Results
-
-Some [scripts](./#scripts) produce data that is considered temporary while others produce core features of the dataset.
-When the result is a **core result**, the result needs copied to the `~/results` folder as well as compressed and uploaded to [GitHub](https://github.com) for long term storage.
-This two part aproach is taken because GitHub has some issues when dealing with [large files](https://help.github.com/en/articles/working-with-large-files).
-The [recomended method](https://help.github.com/en/articles/distributing-large-binaries) for dealing with large files is to store them in [releases][releases].
-You can find the gzip'ed versions of the below there.
-Any of the steps above can be skipped by downloading the correct file and proceding from that point forward.
-
-The below list represents the **core results** in this dataset.
-
-1. [List of Votes](https://github.com/MindMimicLabs/data-congressional-votes/releases/download/1.0/list_of_votes.csv.gz)
-   * Download to `~/results` folder and extract in place
-2. [Vote Details](https://github.com/MindMimicLabs/data-congressional-votes/releases/download/1.0/vote_details.csv.gz)
-   * Download to `~/results` folder and extract in place
-3. Bill text
-
 # R
 
 All scripts have been tested on R/R Studio 3.6.2/1.2.5019.
@@ -81,5 +64,21 @@ They can be installed using the below code then re-starting RStudio.
 install.packages(c('dplyr', 'ggpubr'))
 ```
 
+# Core Results
+
+Some [scripts](./#scripts) produce data that is considered temporary while others produce core features of the dataset.
+When the result is a **core result**, the result needs copied to the `~/results` folder as well as compressed and uploaded to [GitHub](https://github.com) for long term storage.
+This two part aproach is taken because GitHub has some issues when dealing with [large files](https://help.github.com/en/articles/working-with-large-files).
+The [recomended method](https://help.github.com/en/articles/distributing-large-binaries) for dealing with large files is to store them in [releases][releases].
+You can find the gzip'ed versions of the below there.
+Any of the steps above can be skipped by downloading the correct file and proceding from that point forward.
+
+The below list represents the **core results** in this dataset.
+
+1. [List of Votes](https://github.com/MindMimicLabs/data-congressional-votes/releases/download/1.0/list_of_votes.csv.gz)
+   * Download to the `~/results` folder and extract in place
+2. [Vote Details](https://github.com/MindMimicLabs/data-congressional-votes/releases/download/1.0/vote_details.csv.gz)
+   * Download to the `~/results` folder and extract in place
+3. Bill text
 
 [releases]: https://github.com/MindMimicLabs/data-congressional-votes/releases
