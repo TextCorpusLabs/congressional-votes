@@ -88,8 +88,7 @@ if __name__ == '__main__':
         help = 'CSV file containing the aggregated data',
         type = pathlib.Path,
         required = True)
-    #args = parser.parse_args()    
-    #print(f'folder in: {args.folder_in}')
-    #print(f'file out: {args.file_out}')
-    #process_vote_details(args.folder_in, args.file_out)
-    process_vote_details(pathlib.Path('d:/temp/vote_details'), pathlib.Path('d:/temp/vote_details.csv'))
+    args = parser.parse_args()    
+    print(f'folder in: {args.folder_in}')
+    print(f'file out: {args.file_out}')
+    process_vote_details(args.folder_in, args.file_out)
