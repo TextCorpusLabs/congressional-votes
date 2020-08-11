@@ -1,4 +1,5 @@
 USER_AGENT = 'MindMimicLabs/1.0'
 DOMAIN_GOVTRACK = 'govtrack.us'
 ROBOTS_GOVTRACK = f'https://{DOMAIN_GOVTRACK}/robots.txt'
+URL_VOTE_LIST = f'https://{DOMAIN_GOVTRACK}/congress/votes?session={{session}}&faceting=false&do_search=1'
 URL_VOTE_DETAILS = f'https://{DOMAIN_GOVTRACK}/congress/votes/{{vote_id}}/export/csv'

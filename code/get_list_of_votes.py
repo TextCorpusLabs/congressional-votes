@@ -1,17 +1,12 @@
+import const
 import pathlib
 import time
 import urllib.request
 import urllib.robotparser
+import utils
 import progressbar as pb
-import utils as u
 from argparse import ArgumentParser
 from typeguard import typechecked
-
-# setup main variables
-_DOMAIN = 'govtrack.us'
-_PATH = '/congress/votes'
-_QUERY = '?session={session}&faceting=false&do_search=1'
-_USER_AGENT = 'MindMimicLabs/1.0'
 
 @typechecked
 def get_list_of_votes(folder_out: pathlib.Path, session_start: int, session_end: int) -> None:
@@ -27,21 +22,22 @@ def get_list_of_votes(folder_out: pathlib.Path, session_start: int, session_end:
     session_end : int
         The session of Congress used to end the collection of information
     """
-    u.ensure_empty_folder(folder_out)
+    utils.ensure_empty_folder(folder_out)
 
     rp = urllib.robotparser.RobotFileParser()
-    rp.set_url(f'https://{_DOMAIN}/robots.txt')
+    rp.set_url(const.ROBOTS_GOVTRACK)
     rp.read()
 
     widgets = [ 'Retrieving Session # ', pb.Counter(), ' ', pb.Timer(), ' ', pb.BouncingBar(marker = '.', left = '[', right = ']')]
     with pb.ProgressBar(widgets = widgets) as bar:
         for session in range(session_start, session_end + 1):
             bar.update(session)
-            if rp.can_fetch(_USER_AGENT, f'https://{_DOMAIN}{_PATH}'):
-                time.sleep(rp.crawl_delay(_USER_AGENT))
+            url = const.URL_VOTE_LIST.format(session = session)
+            if rp.can_fetch(const.USER_AGENT, url):
+                time.sleep(rp.crawl_delay(const.USER_AGENT))
                 __download_session(folder_out, session)
             else:
-                print(f'robots.txt forbids url: {data_url}')
+                print(f'robots.txt forbids url: {url}')
 
 @typechecked
 def __download_session(folder_out: pathlib.Path, session: int) -> None:
@@ -55,9 +51,9 @@ def __download_session(folder_out: pathlib.Path, session: int) -> None:
     session : int
         The session in question
     """
-    session_url = f'https://{_DOMAIN}{_PATH}{_QUERY}'.format(session = session)
+    session_url = const.URL_VOTE_LIST.format(session = session)
     session_path = folder_out.joinpath(f'./{session}.json')
-    req = urllib.request.Request(session_url, headers = {'User-Agent': _USER_AGENT})
+    req = urllib.request.Request(session_url, headers = {'User-Agent': const.USER_AGENT})
     try:
         with urllib.request.urlopen(req) as response:
             response_code = response.getcode()
