@@ -39,6 +39,14 @@ These paths can still be changed, but the R code will need to be adjusted intern
    ```{shell}
    python -O get_vote_details.py -in d:/temp/list_of_votes.csv -out d:/temp/vote_details
    ```
+4. [process_vote_details.py](./process_vote_details.py)
+   This script combines the raw `CSV` downloaded in step 3 into a single easy to consume `CSV`.
+   This is a [**core result**](./#core-results).
+   It needs to be stored in the `~/results` folder for further processing.
+   It needs to be compressed and uploaded to [releases][releases].
+   ```{shell}
+   python -O process_vote_details.py -in d:/temp/vote_details -out d:/temp/vote_details.csv
+   ```
 
 ## Core Results
 
@@ -53,7 +61,8 @@ The below list represents the **core results** in this dataset.
 
 1. [List of Votes](https://github.com/MindMimicLabs/data-congressional-votes/releases/download/1.0/list_of_votes.csv.gz)
    * Download to `~/results` folder and extract in place
-2. Vote tally
+2. [Vote Details](https://github.com/MindMimicLabs/data-congressional-votes/releases/download/1.0/vote_details.csv.gz)
+   * Download to `~/results` folder and extract in place
 3. Bill text
 
 # R
