@@ -34,6 +34,11 @@ These paths can still be changed, but the R code will need to be adjusted intern
    ```{shell}
    python -O process_list_of_votes.py -in d:/temp/list_of_votes -out d:/temp/list_of_votes.csv
    ```
+3. [get_vote_details.py](./get_vote_details.py).
+   This script will get the details of each vote from [govtrack.us](govtrack.us) based on the prior result.
+   ```{shell}
+   python -O get_vote_details.py -in d:/temp/list_of_votes.csv -out d:/temp/vote_details
+   ```
 
 ## Core Results
 
