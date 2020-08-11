@@ -54,7 +54,7 @@ def __extract_metavote(text: str) -> MetaVote:
     number = elm2.tail.split('#')[1].strip()
     time = elm3.tail.strip()
     result = elm4.tail.strip()
-    name = elm1.text.strip()
+    name = elm1.text.strip().replace('\n', ' ')
 
     return MetaVote(id, chamber, number, time, result, name)
 
