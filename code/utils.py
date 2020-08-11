@@ -1,4 +1,5 @@
 import pathlib
+from shutil import rmtree
 from typeguard import typechecked
 
 # makes sure our parameters are good
@@ -12,20 +13,21 @@ def readable_folder(folder_path: str) -> pathlib.Path:
     return folder_path
 
 @typechecked
-def writable_folder(folder_path: str) -> pathlib.Path:
-    folder_path = pathlib.Path(folder_path).resolve()
-    if not folder_path.exists():
-        folder_path.mkdir(parents = True)
-    elif not folder_path.is_dir():
-        raise NotADirectoryError(str(folder_path))
+def ensure_empty_folder(folder_path: pathlib.Path) -> pathlib.Path:
+    """
+    Makes sure `folder_path` is a folder and is empty.
+    If the path is a file, it will be deleted and a folder created.
+    If the path is a folder, the contents will be deleted.
+    
+    Parameters
+    ----------
+    folder_path : pathlib.Path
+        The path to construct/cleanup
+    """
+    if(folder_path.exists()):
+        if folder_path.is_dir():
+            rmtree(folder_path)
+        else:
+            folder_path.unlink()
+    folder_path.mkdir(parents = True)
     return folder_path
-
-@typechecked
-def writable_file(file_path: str) -> pathlib.Path:
-    file_path = pathlib.Path(file_path).resolve()
-    folder_path = file_path.parent
-    if not folder_path.exists():
-        folder_path.mkdir(parents = True)
-    elif not folder_path.is_dir():
-        raise NotADirectoryError(str(folder_path))
-    return file_path

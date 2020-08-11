@@ -4,9 +4,6 @@
 *.bak
 __pycache__
 
-# data
-/data/raw
-
 # paper
 /paper/**/*.html
 /paper/**/*.pdf

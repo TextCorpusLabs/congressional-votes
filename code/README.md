@@ -1,21 +1,48 @@
 Below can be found a list of data manulipation scripts that help make this work posible.
+Both R and Python were used.
+Python for the data collection and manuliption.
+R for the analysis and paper generation.
 
-## Packages/Modules
+# Python
 
 All scripts have been tested on Python 3.8.5.
-The below modules are needed to run the scripts.
-The scripts were tested on the noted versions, so YMMV.
+The external modules that were used can be found in the `requirments.txt` file along with their versions.
 **Note**: not all modules are required for all scripts.
-If this it the first time running the scripts, the modules will need to be installed.
-They can be installed by navigating to the `~/code` folder, then using the below code.
+If any of the modules are not alreasy installed the normal `pip install -r requirments.txt` process should be followed.
 
-* bs4 = 0.0.1
-* lxml = 4.5.0
-* progressbar2 = 3.47.0
+## Scripts
 
-```{shell}
-pip install -r requirments.txt
-```
+Below is a brief summary of each of the scripts.
+In order to fully regenerate the results run the scripts in the order listed.
+Any folder result will be deleted, including subfolders, then recreated.
+Any file result will first be overwritten.
+The pathing can be changed to any desired location.
+Some script results need to be stored in the `~/results` folder in order for the [code written in R](./#r) to be run without path updates.
+When this is the case, the script will note as such.
+These paths can still be changed, but the R code will need to be adjusted internally.
+
+
+1. [get_list_of_votes.py](./get_list_of_votes.py).
+   This script will get the list of votes from [govtrack.us](govtrack.us) starting in 1990 (session 274) and ending in 2020 (session 304).
+   ```{shell}
+   python -O get_list_of_votes.py -out d:/temp/list_of_votes -s 274 -e 304
+   ```
+
+## Core Data
+
+Some [scripts](./#scripts) produce data that is considered temporary while others produce core features of the dataset.
+When the result is a core feature, a step will be present in order to compress the information for long term storage in [GitHub](https://github.com).
+This two part aproach is taken because GitHub has some issues when dealing with [large files](https://help.github.com/en/articles/working-with-large-files).
+The [recomended method](https://help.github.com/en/articles/distributing-large-binaries) for dealing with large files is to store them in [releases](https://github.com/MindMimicLabs/data-congressional-votes/releases).
+You can find the gzip'ed versions of the below there.
+Any of the steps above can be skipped by downloading the correct file and proceding from that point forward.
+
+1. [List of Votes](https://github.com/MindMimicLabs/data-congressional-votes/releases/download/1.0/list_of_votes.csv.gz)
+   * Download to `~/results` and extract in place
+2. Vote tally
+3. Bill text
+
+# R
 
 All scripts have been tested on R/R Studio 3.6.2/1.2.5019.
 The below packages are needed to run the scripts.
@@ -31,11 +58,4 @@ They can be installed using the below code then re-starting RStudio.
 install.packages(c('dplyr', 'ggpubr'))
 ```
 
-## Scripts
 
-Below is a brief summary of each of the scripts.
-If you want to fully regenerate the results, clean out the `~/data` and `~results` folders then run the scripts in the order listed.
-
-1. [get_list_of_votes.py](./get_list_of_votes.py).
-   This script will get the list of votes from [govtrack.us](govtrack.us) starting in 1990 and ending in 2020.
-   This script will produce the temporary folder `~/data/raw/list_of_votes` necessary for ofline processing.
