@@ -28,19 +28,23 @@ These paths can still be changed, but the R code will need to be adjusted intern
    ```
 2. [process_list_of_votes.py](./process_list_of_votes.py).
    This script converts the raw `JSON` downloaded in step 1 into an easy to consume `CSV`.
-   This is a _core result_ and needs to be stored in the `~/results` folder and uploaded to [releases](./#core-data).
+   This is a **core result**.
+   It needs to be stored in the `~/results` folder for further processing.
+   It needs to be compressed and uploaded to [releases](./#core-results).
    ```{shell}
    python -O process_list_of_votes.py -in d:/temp/list_of_votes -out d:/temp/list_of_votes.csv
    ```
 
-## Core Data
+## Core Results
 
 Some [scripts](./#scripts) produce data that is considered temporary while others produce core features of the dataset.
-When the result is a core feature, a step will be present in order to compress the information for long term storage in [GitHub](https://github.com).
+When the result is a **core result**, the result needs copied to the `~/results` folder as well as compressed and uploaded to [GitHub](https://github.com) for long term storage.
 This two part aproach is taken because GitHub has some issues when dealing with [large files](https://help.github.com/en/articles/working-with-large-files).
 The [recomended method](https://help.github.com/en/articles/distributing-large-binaries) for dealing with large files is to store them in [releases](https://github.com/MindMimicLabs/data-congressional-votes/releases).
 You can find the gzip'ed versions of the below there.
 Any of the steps above can be skipped by downloading the correct file and proceding from that point forward.
+
+The below list represents the **core results** in this dataset.
 
 1. [List of Votes](https://github.com/MindMimicLabs/data-congressional-votes/releases/download/1.0/list_of_votes.csv.gz)
    * Download to `~/results` and extract in place
