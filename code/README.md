@@ -21,11 +21,16 @@ Some script results need to be stored in the `~/results` folder in order for the
 When this is the case, the script will note as such.
 These paths can still be changed, but the R code will need to be adjusted internally.
 
-
 1. [get_list_of_votes.py](./get_list_of_votes.py).
    This script will get the list of votes from [govtrack.us](govtrack.us) starting in 1990 (session 274) and ending in 2020 (session 304).
    ```{shell}
    python -O get_list_of_votes.py -out d:/temp/list_of_votes -s 274 -e 304
+   ```
+2. [process_list_of_votes.py](./process_list_of_votes.py).
+   This script converts the raw `JSON` downloaded in step 1 into an easy to consume `CSV`.
+   This is a _core result_ and needs to be stored in the `~/results` folder and uploaded to [releases](./#core-data).
+   ```{shell}
+   python -O process_list_of_votes.py -in d:/temp/list_of_votes -out d:/temp/list_of_votes.csv
    ```
 
 ## Core Data
