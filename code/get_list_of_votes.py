@@ -90,9 +90,8 @@ if __name__ == '__main__':
         help = 'The session of Congress used to end (inclusive) the collection of information',
         type = int,
         required = True)
-    #args = parser.parse_args()
-    #print(f'folder out: {args.folder_out}')
-    #print(f'session start: {args.session_start}')
-    #print(f'session end: {args.session_end}')
-    #get_list_of_votes(args.folder_out, args.session_start, args.session_end)
-    get_list_of_votes(pathlib.Path('d:/temp/list_of_votes'), 274, 304)
+    args = parser.parse_args()
+    print(f'folder out: {args.folder_out}')
+    print(f'session start: {args.session_start}')
+    print(f'session end: {args.session_end}')
+    get_list_of_votes(args.folder_out, args.session_start, args.session_end)
