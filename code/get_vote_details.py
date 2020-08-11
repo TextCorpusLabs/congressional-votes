@@ -56,7 +56,7 @@ def __download_vote_details(folder_out : pathlib.Path, vote_id: str) -> None:
         The vote's id, {congress}-{year}/{vote #}
     """
     detail_url = const.URL_VOTE_DETAILS.format(vote_id = vote_id)
-    detail_path = folder_out.joinpath(f'./{vote_id.replace("/", "-")}.csv')
+    detail_path = folder_out.joinpath(f'./{utils.vote_id_to_path(vote_id)}.csv')
     req = urllib.request.Request(detail_url, headers = {'User-Agent': const.USER_AGENT})
     try:
         with urllib.request.urlopen(req) as response:

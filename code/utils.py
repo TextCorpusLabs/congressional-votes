@@ -2,16 +2,6 @@ import pathlib
 from shutil import rmtree
 from typeguard import typechecked
 
-# makes sure our parameters are good
-@typechecked
-def readable_folder(folder_path: str) -> pathlib.Path:
-    folder_path = pathlib.Path(folder_path).resolve()
-    if not folder_path.exists():
-        raise FileNotFoundError(str(folder_path))
-    elif not folder_path.is_dir():
-        raise NotADirectoryError(str(folder_path))
-    return folder_path
-
 @typechecked
 def ensure_empty_folder(folder_path: pathlib.Path) -> pathlib.Path:
     """
@@ -31,3 +21,32 @@ def ensure_empty_folder(folder_path: pathlib.Path) -> pathlib.Path:
             folder_path.unlink()
     folder_path.mkdir(parents = True)
     return folder_path
+
+@typechecked
+def vote_id_to_path(vote_id: str) -> str:
+    """
+    The vote id in the files has a '/' in it.
+    This is an invalid character for file names.
+    Convert it to a '-'
+
+    Parameters
+    ----------
+    vote_id: str
+        The vote id
+    """
+    return vote_id.replace('/', '-')
+
+@typechecked
+def vote_path_to_id(vote_path: str) -> str:
+    """
+    The inverse of `vote_id_to_path()`
+
+    Parameters
+    ----------
+    vote_path: str
+        The vote path
+    """
+    tmp = vote_path.split('-')
+    if len(tmp) != 3:
+        raise Exception(f'Bad format {vote_path}')
+    return f'{tmp[0]}-{tmp[1]}/{tmp[2]}'
