@@ -47,7 +47,7 @@ Any of the steps above can be skipped by downloading the correct file and proced
 The below list represents the **core results** in this dataset.
 
 1. [List of Votes](https://github.com/MindMimicLabs/data-congressional-votes/releases/download/1.0/list_of_votes.csv.gz)
-   * Download to `~/results` and extract in place
+   * Download to `~/results` folder and extract in place
 2. Vote tally
 3. Bill text
 

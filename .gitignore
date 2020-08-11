@@ -9,4 +9,5 @@ __pycache__
 /paper/**/*.pdf
 
 # results
+/results/list_of_votes.*
 !/results/*.RData
