@@ -30,7 +30,7 @@ These paths can still be changed, but the R code will need to be adjusted intern
    This script converts the raw `JSON` downloaded in step 1 into an easy to consume `CSV`.
    This is a [**core result**](./#core-results).
    It needs to be stored in the `~/results` folder for further processing.
-   It needs to be compressed and uploaded to[releases][releases].
+   It needs to be compressed and uploaded to [releases][releases].
    ```{shell}
    python -O process_list_of_votes.py -in d:/temp/list_of_votes -out d:/temp/list_of_votes.csv
    ```
