@@ -22,7 +22,7 @@ When this is the case, the script will note as such.
 These paths can still be changed, but the R code will need to be adjusted internally.
 
 1. [get_list_of_votes.py](./get_list_of_votes.py).
-   This script will get the list of votes from [govtrack.us](govtrack.us) starting in 1990 (session 274) and ending in 2020 (session 304).
+   This script will get the list of votes from [govtrack.us](https://govtrack.us) starting in 1990 (session 274) and ending in 2020 (session 304).
    ```{shell}
    python -O get_list_of_votes.py -out d:/temp/list_of_votes -s 274 -e 304
    ```
@@ -35,7 +35,7 @@ These paths can still be changed, but the R code will need to be adjusted intern
    python -O process_list_of_votes.py -in d:/temp/list_of_votes -out d:/temp/list_of_votes.csv
    ```
 3. [get_vote_details.py](./get_vote_details.py).
-   This script will get the details of each vote from [govtrack.us](govtrack.us) based on the prior result.
+   This script will get the details of each vote from [govtrack.us](https://govtrack.us) based on the prior result.
    ```{shell}
    python -O get_vote_details.py -in d:/temp/list_of_votes.csv -out d:/temp/vote_details
    ```
@@ -46,6 +46,11 @@ These paths can still be changed, but the R code will need to be adjusted intern
    It needs to be compressed and uploaded to [releases][releases].
    ```{shell}
    python -O process_vote_details.py -in d:/temp/vote_details -out d:/temp/vote_details.csv
+   ```
+5. [get_vote_text.py](./get_vote_text.py)
+   This script will get the plain text of measure voted upon from [congress.gov](https://congress.gov) based on the prior result.
+   ```{shell}
+   python -O get_vote_text.py -in d:/temp/list_of_votes.csv -out d:/temp/vote_details
    ```
 
 # R
