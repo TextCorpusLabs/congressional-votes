@@ -1,73 +1,108 @@
 import const
 import pathlib
 import time
-import urllib.request
-import urllib.robotparser
+import requests
+import protego
 import utils
 import progressbar as pb
 from argparse import ArgumentParser
+from lxml import etree
 from typeguard import typechecked
 
 @typechecked
-def get_list_of_votes(folder_out: pathlib.Path, session_start: int, session_end: int) -> None:
+def get_list_of_votes(folder_out: pathlib.Path, congress: int) -> None:
     """
-    Get the list of votes from govtrack.us for the requested sessions (inclusive).
+    Get the list of votes from a specified Congress.
 
     Parameters
     ----------
     folder_out : pathlib.Path
         Folder to contain the downloaded documents
-    session_start : int
-        The session of Congress used to start the collection of information
-    session_end : int
-        The session of Congress used to end the collection of information
+    congress : int
+        The Congress in question
     """
-    utils.ensure_empty_folder(folder_out)
+    with requests.Session() as session:
+        session.headers['User-Agent'] = const.USER_AGENT
 
-    rp = urllib.robotparser.RobotFileParser()
-    rp.set_url(const.ROBOTS_GOVTRACK)
-    rp.read()
+        print("Complying with robots.txt...")
+        rtxt = __setup_robots_txt(session)
 
-    widgets = [ 'Retrieving Session # ', pb.Counter(), ' ', pb.Timer(), ' ', pb.BouncingBar(marker = '.', left = '[', right = ']')]
-    with pb.ProgressBar(widgets = widgets) as bar:
-        for session in range(session_start, session_end + 1):
-            bar.update(session)
-            url = const.URL_VOTE_LIST.format(session = session)
-            if rp.can_fetch(const.USER_AGENT, url):
-                time.sleep(rp.crawl_delay(const.USER_AGENT))
-                __download_session(folder_out, session)
-            else:
-                print(f'robots.txt forbids url: {url}')
+        print('Retrieving page 1...')
+        if rtxt.can_fetch(const.USER_AGENT, const.URL_VOTE_LIST):
+            page_1_file = __download_page(session, congress, 1, folder_out)
+            total_pages = __get_total_pages(page_1_file)
+
+            widgets = [ 'Retrieving Page # ', pb.Counter(), ' ', pb.Bar(marker = '.', left = '[', right = ']'), ' ', pb.ETA()]
+            with pb.ProgressBar(widgets = widgets, max_value = total_pages) as bar:
+                for page in range(2, total_pages + 1):
+                    bar.update(page)
+                    time.sleep(max(.5, rtxt.crawl_delay(const.USER_AGENT)))
+                    __download_page(session, congress, page, folder_out)
+        else:
+            print(f'robots.txt forbids url: {const.URL_VOTE_LIST}')
 
 @typechecked
-def __download_session(folder_out: pathlib.Path, session: int) -> None:
+def __setup_robots_txt(session: requests.Session) -> protego.Protego:
     """
-    Get the list of votes from a single session.
+    Gets the robots.txt from Congress and makes our parser
 
     Parameters
     ----------
+    session: requests.Session
+        The browser session
+    """
+    with session.get(const.ROBOTS) as response:
+        rtxt = protego.Protego.parse(response.text)
+    return rtxt
+
+@typechecked
+def __get_total_pages(page_path: pathlib.Path) -> int:
+    """
+    Pulls out the total number of pages for a single Congress
+
+    Parameters
+    ----------
+    page_path : pathlib.Path
+        The path to page 1
+    """
+    with open(page_path, 'r', encoding = 'utf-8') as fp:
+        tree = etree.parse(fp, etree.HTMLParser())
+    node = tree.find("//div[@class='pagination']/span[@class='results-number']")
+    text = node.text.strip()
+    return int(text.split()[1])    
+
+@typechecked
+def __download_page(session: requests.Session, congress: int, page: int, folder_out: pathlib.Path) -> pathlib.Path:
+    """
+    Get a single page worth of bills.
+
+    Parameters
+    ----------
+    session: requests.Session
+        The browser session
+    congress : int
+        The Congress in question
+    page : int
+        The Congress in question
     folder_out : pathlib.Path
         Folder to contain the downloaded documents
-    session : int
-        The session in question
     """
-    session_url = const.URL_VOTE_LIST.format(session = session)
-    session_path = folder_out.joinpath(f'./{session}.json')
-    req = urllib.request.Request(session_url, headers = {'User-Agent': const.USER_AGENT})
-    try:
-        with urllib.request.urlopen(req) as response:
-            response_code = response.getcode()
-            if response_code == 200:
-                content = response.read()
-                with open(session_path, 'wb') as session_path:
-                    session_path.write(content)
-            else:
-                print(f'could not open ({response_code}) url: {session_url}')
-    except urllib.error.HTTPError as e:
-        print(f'could not open ({e.reason}) url: {session_url}')
-    except urllib.error.URLError as e:
-        print(f'could not open ({e.reason}) url: {session_url}')
 
+    params = {
+        'congresses' : congress,
+        'pageSize' : 250,
+        'page' : page,        
+        'q' : '{"type":"bills"}',
+        'submitted' : 'Submitted'
+    }
+    result_path = folder_out.joinpath(f'./bill_list.{congress}.{page}.html')
+    with session.get(const.URL_VOTE_LIST, params = params) as response:
+        if response.status_code == 200:
+            with open(result_path, 'w', encoding = 'utf-8') as fp:
+                fp.write(response.text)
+            return result_path
+        else:
+            print(f'could not open ({response.status_code}) url: {page_url}')
 
 if __name__ == '__main__':
     parser = ArgumentParser()
@@ -77,17 +112,12 @@ if __name__ == '__main__':
         type = pathlib.Path,
         required = True)
     parser.add_argument(
-        '-s', '--session-start',
-        help = 'The session of Congress used to start the collection of information',
-        type = int,
-        required = True)
-    parser.add_argument(
-        '-e', '--session-end',
-        help = 'The session of Congress used to end (inclusive) the collection of information',
+        '-c', '--congress',
+        help = 'The Congress in question',
         type = int,
         required = True)
     args = parser.parse_args()
     print(f'folder out: {args.folder_out}')
-    print(f'session start: {args.session_start}')
-    print(f'session end: {args.session_end}')
-    get_list_of_votes(args.folder_out, args.session_start, args.session_end)
+    print(f'congress start: {args.congress}')
+    get_list_of_votes(args.folder_out, args.congress)
+
