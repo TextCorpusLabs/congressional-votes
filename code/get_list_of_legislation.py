@@ -10,9 +10,9 @@ from lxml import etree
 from typeguard import typechecked
 
 @typechecked
-def get_list_of_votes(folder_out: pathlib.Path, congress: int) -> None:
+def get_list_of_legislation(folder_out: pathlib.Path, congress: int) -> None:
     """
-    Get the list of votes from a specified Congress.
+    Get the list of legislation from a specified Congress.
 
     Parameters
     ----------
@@ -119,5 +119,5 @@ if __name__ == '__main__':
     args = parser.parse_args()
     print(f'folder out: {args.folder_out}')
     print(f'congress start: {args.congress}')
-    get_list_of_votes(args.folder_out, args.congress)
+    get_list_of_legislation(args.folder_out, args.congress)
 

@@ -21,11 +21,11 @@ Some script results need to be stored in the `~/results` folder in order for the
 When this is the case, the script will note as such.
 These paths can still be changed, but the R code will need to be adjusted internally.
 
-1. [get_list_of_votes.py](./get_list_of_votes.py).
+1. [get_list_of_legislation.py](./get_list_of_legislation.py).
    This script will get the list of votes from [Congress](https://www.congress.gov).
    The script needs to know which congress (I.E. 101st)
    ```{shell}
-   python -O get_list_of_votes.py -out d:/temp/list_of_votes -c 101
+   python -O get_list_of_legislation.py -out d:/temp/list_of_votes -c 101
    ```
 2. [process_list_of_votes.py](./process_list_of_votes.py).
    This script converts the raw `JSON` downloaded in step 1 into an easy to consume `CSV`.
