@@ -27,13 +27,13 @@ These paths can still be changed, but the R code will need to be adjusted intern
    ```{shell}
    python -O get_list_of_legislation.py -out d:/temp/list_of_votes -c 101
    ```
-2. [process_list_of_votes.py](./process_list_of_votes.py).
-   This script converts the raw `JSON` downloaded in step 1 into an easy to consume `CSV`.
+2. [process_list_of_legislation.py](./process_list_of_legislation.py).
+   This script converts the raw `HTML` downloaded in step 1 into an easy to consume `CSV`.
    This is a [**core result**](./#core-results).
    It needs to be stored in the `~/results` folder for further processing.
    It needs to be compressed and uploaded to [releases][releases].
    ```{shell}
-   python -O process_list_of_votes.py -in d:/temp/list_of_votes -out d:/temp/list_of_votes.csv
+   python -O process_list_of_legislation.py -in d:/temp/list_of_votes -out d:/temp/list_of_votes.csv
    ```
 3. [get_vote_details.py](./get_vote_details.py).
    This script will get the details of each vote from [govtrack.us](https://govtrack.us) based on the prior result.
