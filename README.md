@@ -1,6 +1,7 @@
-# Congressional Roll Call Votes
+# Congressional Roll Call Votes To Text Corpus
 
-
+![Python](https://img.shields.io/badge/python-3.x-blue.svg)
+![MIT license](https://img.shields.io/badge/License-MIT-green.svg)
 
 ## Tabula Rasa
 
